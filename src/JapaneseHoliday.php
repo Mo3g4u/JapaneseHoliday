@@ -35,24 +35,49 @@ class JapaneseHoliday
             $year . '-10-' . $this->getNthMondayInMonth($year, 10, 2), // 体育の日
             $year . '-11-03', // 文化の日
             $year . '-11-23', // 勤労感謝の日
-            $year . '-12-23', // 天皇誕生日
-            // 9月の国民の休日
-            '2009-09-22',
-            '2015-09-22',
-            '2026-09-22',
-            '2032-09-21'
-            // Todo まだある
-
+            $year . '-12-23' // 天皇誕生日
         ];
+        $nationalHoliday = [
+            '2026' => '2026-09-22',
+            '2032' => '2032-09-21'
+        ];
+        if(isset($nationalHoliday[$year])){
+            $holidays[] = $nationalHoliday[$year];
+        }
 
-        // Todo ここから再開
-
-
-        return $holidays;
+        $calcHolidays = [];
+        foreach ($holidays as $k => $holiday) {
+            $date = explode('-', $holiday);
+            if (empty($date[0]) or empty($date[1]) or empty($date[2])) {
+                continue;
+            }
+            $timestamp = mktime(0, 0, 0, $date[1], $date[2], $date[0]);
+            $calcHolidays[] = $holiday;
+            if (date('w', $timestamp) !== '0') { // 祝日が日曜日以外なら継続
+                continue;
+            }
+            // 国民の祝日に関する法律が祝日が日曜日に当たるときは、その日後においてその日に最も近い国民の祝日でない日を休日とする
+            $count = 1;
+            while(1){
+                $nextDay = date('Y-m-d', strtotime('+' . $count . ' day', $timestamp));
+                if(!in_array($nextDay, $holidays)){
+                    $calcHolidays[] = $nextDay;
+                    break;
+                }
+                $count++;
+            }
+        }
+        return $calcHolidays;
     }
 
-    public function isHoliday($day){
-        return true;
+    public function isHoliday($year, $month, $day)
+    {
+        if (!checkdate($month, $day, $year)) {
+            return false;
+        }
+
+        return in_array(sprintf('%4d-%02d-%02d', $year, $month, $day),
+            $this->getHolidays($year));
     }
 
 
