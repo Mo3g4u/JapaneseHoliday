@@ -6,24 +6,48 @@
  * Time: 22:20
  */
 
-namespace KazuyaTakeuchi\JapaneseHoliday;
-
+namespace Mo3g4u\JapaneseHoliday;
 
 class JapaneseHoliday
 {
+    private $nationalHolidays;
 
+    public function __construct()
+    {
+        $this->nationalHolidays = [
+            '2026' => '2026-09-22',
+            '2032' => '2032-09-21',
+            '2037' => '2037-09-22',
+            '2043' => '2043-09-22',
+            '2049' => '2049-09-21',
+            '2054' => '2054-09-22',
+            '2060' => '2060-09-21',
+            '2065' => '2065-09-22',
+            '2071' => '2071-09-22',
+            '2077' => '2077-09-21',
+            '2088' => '2088-09-21',
+            '2094' => '2094-09-21',
+            '2099' => '2099-09-22',
+        ];
+    }
+
+    /**
+     * 対象年の祝日を配列で返す
+     * @param $year
+     * @return array
+     */
     public function getHolidays($year)
     {
         $holidays = [];
-        if(!$this->yearExist($year)){
+        // 現時点では2016年以降だけを対象としている
+        if(!$this->yearExist($year) || $year < 2016){
             return $holidays;
         }
-
         $holidays = [
             $year . '-01-01',  // 元旦
             $year . '-01-' . $this->getNthMondayInMonth($year, 1, 2), // 成人の日
             $year . '-02-11', // 建国記念日
-            $year . '-03-' . $this->getSpringEquinox($year), // 春分の日
+            $year . '-03-' . $this->getVernalEquinox($year), // 春分の日
             $year . '-04-29', // 昭和の日
             $year . '-05-03', // 憲法記念日
             $year . '-05-04', // みどりの日
@@ -37,14 +61,36 @@ class JapaneseHoliday
             $year . '-11-23', // 勤労感謝の日
             $year . '-12-23' // 天皇誕生日
         ];
-        $nationalHoliday = [
-            '2026' => '2026-09-22',
-            '2032' => '2032-09-21'
-        ];
-        if(isset($nationalHoliday[$year])){
-            $holidays[] = $nationalHoliday[$year];
+        if(isset($this->nationalHolidays[$year])){
+            $holidays[] = $this->nationalHolidays[$year];
+        }
+        sort($holidays, SORT_NATURAL);
+        return $this->setSustituteHoliday($holidays);
+    }
+
+    /**
+     * 祝日判定
+     * @param $year
+     * @param $month
+     * @param $day
+     * @return bool
+     */
+    public function isHoliday($year, $month, $day)
+    {
+        if (!checkdate($month, $day, $year)) {
+            return false;
         }
 
+        return in_array(sprintf('%4d-%02d-%02d', $year, $month, $day),
+            $this->getHolidays($year));
+    }
+
+    /**
+     * 振替休日
+     * @param $holidays
+     * @return array
+     */
+    private function setSustituteHoliday($holidays){
         $calcHolidays = [];
         foreach ($holidays as $k => $holiday) {
             $date = explode('-', $holiday);
@@ -70,21 +116,12 @@ class JapaneseHoliday
         return $calcHolidays;
     }
 
-    public function isHoliday($year, $month, $day)
-    {
-        if (!checkdate($month, $day, $year)) {
-            return false;
-        }
-
-        return in_array(sprintf('%4d-%02d-%02d', $year, $month, $day),
-            $this->getHolidays($year));
-    }
-
-
-
-
-
-    private function getSpringEquinox($year)
+    /**
+     * 春分の日
+     * @param $year
+     * @return bool|float
+     */
+    private function getVernalEquinox($year)
     {
         if (!$year) {
             return false;
@@ -92,6 +129,11 @@ class JapaneseHoliday
         return floor(20.84341 + 0.242194 * ($year - 1980) - floor(($year - 1980) / 4));
     }
 
+    /**
+     * 秋分の日
+     * @param $year
+     * @return bool|float
+     */
     private function getAutumnalEquinox($year)
     {
         if (!$year) {
@@ -100,8 +142,13 @@ class JapaneseHoliday
         return floor(23.2488 + 0.242194 * ($year - 1980) - floor(($year - 1980) / 4));
     }
 
-
-
+    /**
+     * ハッピーマンデー
+     * @param int $year
+     * @param int $month
+     * @param int $n
+     * @return string
+     */
     private function getNthMondayInMonth($year = 0, $month = 0, $n = 0)
     {
         if (!$this->monthExist($month) or 6 < $n or $n < 0) {
@@ -131,11 +178,20 @@ class JapaneseHoliday
         return sprintf('%02d', $day);
     }
 
+    /**
+     * 年チェック
+     * @param $year
+     * @return bool
+     */
     private function yearExist($year){
         return checkdate(1,1,$year);
     }
 
-
+    /**
+     * 月チェック
+     * @param int $month
+     * @return bool
+     */
     private function monthExist($month = 0)
     {
         return checkdate($month, 1, 2000);

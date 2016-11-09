@@ -17,7 +17,7 @@
   },
   "autoload": {
     "psr-4": {
-      "KazuyaTakeuchi\\JapaneseHoliday\\": "src"
+      "Mo3g4u\\JapaneseHoliday\\": "src"
     },
     "exclude-from-classmap": [
       "/tests/"

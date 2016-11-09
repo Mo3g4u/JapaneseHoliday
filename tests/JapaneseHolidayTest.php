@@ -6,7 +6,7 @@
  * Time: 22:18
  */
 
-use KazuyaTakeuchi\JapaneseHoliday\JapaneseHoliday;
+use Mo3g4u\JapaneseHoliday\JapaneseHoliday;
 
 class JapaneseHolidayTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,11 +15,14 @@ class JapaneseHolidayTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->JapaneseHoliday = new KazuyaTakeuchi\JapaneseHoliday\JapaneseHoliday();
+        $this->JapaneseHoliday = new Mo3g4u\JapaneseHoliday\JapaneseHoliday();
     }
 
     public function testGetHolidays()
     {
+        $holidays = $this->JapaneseHoliday->getHolidays('2015');
+        $this->assertEquals(0, count($holidays));
+
         $holidays = $this->JapaneseHoliday->getHolidays('2016');
         $this->assertEquals(17, count($holidays));
         $this->assertEquals('2016-01-01', $holidays[0]); // 元日
@@ -46,6 +49,9 @@ class JapaneseHolidayTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(true, $this->JapaneseHoliday->isHoliday(2016, 11, 3));
         $this->assertEquals(false, $this->JapaneseHoliday->isHoliday(2016,11, 2));
+        $this->assertEquals(true, $this->JapaneseHoliday->isHoliday(2088, 9, 20));
+        $this->assertEquals(true, $this->JapaneseHoliday->isHoliday(2088, 9, 21));
+        $this->assertEquals(true, $this->JapaneseHoliday->isHoliday(2088, 9, 22));
 
     }
 
