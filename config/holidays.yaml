@@ -1,0 +1,207 @@
+-
+  caption: 元日
+  type: fixed
+  start: 1948
+  end:
+  month: 1
+  day: 1
+  nth:
+  dow:
+-
+  caption: 成人の日
+  type: fixed
+  start: 1948
+  end: 1999
+  month: 1
+  day: 15
+  nth:
+  dow:
+-
+  caption: 成人の日
+  type: happy
+  start: 2000
+  end:
+  month: 1
+  day:
+  nth: 2
+  dow: 1
+-
+  caption: 建国記念日
+  type: fixed
+  start: 1966
+  end:
+  month: 2
+  day: 11
+  nth:
+  dow:
+-
+  caption: 昭和天皇の大喪の礼
+  type: fixed
+  start: 1989
+  end: 1989
+  month: 2
+  day: 24
+  nth:
+  dow:
+-
+  caption: 春分の日
+  type: spring
+  start: 1948
+  end:
+  month: 3
+  day:
+  nth:
+  dow:
+-
+  caption: 天皇誕生日
+  type: fixed
+  start: 1949
+  end: 1988
+  month: 4
+  day: 29
+  nth:
+  dow:
+-
+  caption: みどりの日
+  type: fixed
+  start: 1989
+  end: 2006
+  month: 4
+  day: 29
+  nth:
+  dow:
+-
+  caption: 昭和の日
+  type: fixed
+  start: 2007
+  end:
+  month: 4
+  day: 29
+  nth:
+  dow:
+-
+  caption: 憲法記念日
+  type: fixed
+  start: 1948
+  end:
+  month: 5
+  day: 3
+  nth:
+  dow:
+-
+  caption: みどりの日
+  type: fixed
+  start: 2007
+  end:
+  month: 5
+  day: 4
+  nth:
+  dow:
+-
+  caption: こどもの日
+  type: fixed
+  start: 1948
+  end:
+  month: 5
+  day: 5
+  nth:
+  dow:
+-
+  caption: 海の日
+  type: fixed
+  start: 1996
+  end: 2002
+  month: 7
+  day: 20
+  nth:
+  dow:
+-
+  caption: 海の日
+  type: happy
+  start: 2003
+  end:
+  month: 7
+  day:
+  nth: 3
+  dow: 1
+-
+  caption: 山の日
+  type: fixed
+  start: 2016
+  end:
+  month: 8
+  day: 11
+  nth:
+  dow:
+-
+  caption: 敬老の日
+  type: fixed
+  start: 1966
+  end: 2002
+  month: 9
+  day: 15
+  nth:
+  dow:
+-
+  caption: 敬老の日
+  type: happy
+  start: 2003
+  end:
+  month: 9
+  day:
+  nth: 3
+  dow: 1
+-
+  caption: 秋分の日
+  type: autumn
+  start: 1948
+  end:
+  month: 9
+  day:
+  nth:
+  dow:
+-
+  caption: 体育の日
+  type: fixed
+  start: 1966
+  end: 1999
+  month: 10
+  day: 10
+  nth:
+  dow:
+-
+  caption: 体育の日
+  type: happy
+  start: 2000
+  end:
+  month: 10
+  day:
+  nth: 2
+  dow: 1
+-
+  caption: 文化の日
+  type: fixed
+  start: 1948
+  end:
+  month: 11
+  day: 3
+  nth:
+  dow:
+-
+  caption: 勤労感謝の日
+  type: fixed
+  start: 1948
+  end:
+  month: 11
+  day: 23
+  nth:
+  dow:
+-
+  caption: 天皇誕生日
+  type: fixed
+  start: 1989
+  end:
+  month: 12
+  day: 23
+  nth:
+  dow:
