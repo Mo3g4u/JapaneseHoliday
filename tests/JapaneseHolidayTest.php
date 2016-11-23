@@ -18,6 +18,30 @@ class JapaneseHolidayTest extends \PHPUnit_Framework_TestCase
         $this->JapaneseHoliday = new Mo3g4u\JapaneseHoliday\JapaneseHoliday();
     }
 
+    public function testGetHolidays1966()
+    {
+        $holidays = $this->JapaneseHoliday->getHolidays('1966');
+        $this->assertEquals(11, count($holidays));
+    }
+
+    public function testGetHolidays1967()
+    {
+        $holidays = $this->JapaneseHoliday->getHolidays('1967');
+        $this->assertEquals(12, count($holidays));
+    }
+
+    public function testGetHolidays2006()
+    {
+        $holidays = $this->JapaneseHoliday->getHolidays('2006');
+        $this->assertEquals(16, count($holidays));
+    }
+
+    public function testGetHolidays2007()
+    {
+        $holidays = $this->JapaneseHoliday->getHolidays('2007');
+        $this->assertEquals(19, count($holidays));
+    }
+
     public function testGetHolidays1949()
     {
         $holidays = $this->JapaneseHoliday->getHolidays('1949');
