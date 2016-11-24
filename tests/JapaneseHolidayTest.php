@@ -258,4 +258,13 @@ class JapaneseHolidayTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('1', $dateTimes[1]->format('w'));
     }
 
+    public function testGetDatesFormat()
+    {
+        $this->JapaneseHoliday->reset(2016, 5);
+        $dates = $this->JapaneseHoliday->getDates('Y年m月d日');
+        $this->assertEquals(3, count($dates));
+        $this->assertEquals('2016年05月03日', $dates[0]);
+        $this->assertEquals('2016年05月04日', $dates[1]);
+        $this->assertEquals('2016年05月05日', $dates[2]);
+    }
 }

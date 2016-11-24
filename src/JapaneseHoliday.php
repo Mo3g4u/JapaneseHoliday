@@ -125,15 +125,23 @@ class JapaneseHoliday
             if($month > 0 && $month != $item['month']){
                 continue;
             }
-            $holiday = new Holiday(
+            $class = 'Mo3g4u\JapaneseHoliday\\' . ucfirst($item['type']);
+            $holiday = new $class(
                 $item['caption'], $item['type'], $item['start'], $item['end'],
                 $item['month'], $item['day'], $item['nth'], $item['dow'],
                 $year
             );
-            if($holiday->isScopeYear()){
-                $holiday->setDateTimeByYear();
-                $holidays[] = $holiday;
+            if(!$holiday->isScopeYear()){
+                continue;
             }
+
+            try {
+                $holiday->calc();
+            } catch (\Exception $e) {
+                echo "Error:" . $e->getMessage();
+                exit();
+            }
+            $holidays[] = $holiday;
         }
 
         if($year >= 1973){

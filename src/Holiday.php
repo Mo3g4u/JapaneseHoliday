@@ -14,43 +14,43 @@ class Holiday
     /**
      * @var string
      */
-    private $caption = '';
+    protected $caption = '';
     /**
      * @var string
      */
-    private $type = '';
+    protected $type = '';
     /**
      * @var int
      */
-    private $start = 0;
+    protected $start = 0;
     /**
      * @var int
      */
-    private $end = 0;
+    protected $end = 0;
     /**
      * @var int
      */
-    private $month = 0;
+    protected $month = 0;
     /**
      * @var int
      */
-    private $day = 0;
+    protected $day = 0;
     /**
      * @var int
      */
-    private $nth = 0;
+    protected $nth = 0;
     /**
      * @var string
      */
-    private $dow = '';
+    protected $dow = '';
     /**
      * @var int
      */
-    private $year = 0;
+    protected $year = 0;
     /**
      * @var string
      */
-    private $dateTime = '';
+    protected $dateTime = '';
 
     /**
      * @return string
@@ -112,20 +112,14 @@ class Holiday
         $this->year = $year;
     }
 
-
-
     /**
-     * @return \DateTime
+     *
      */
-    public function setDateTimeByYear()
+    public function calc()
     {
-        $method = sprintf('%sCalc', $this->type); // fix or happy or spring or fall
-        try {
-            $this->dateTime =  $this->$method();
-        } catch (\Exception $e) {
-            echo "Error:" . $e->getMessage();
-            exit();
-        }
+        $date = new \DateTime();
+        $date->setDate($this->year, $this->month, $this->day);
+        $this->dateTime = $date;
     }
 
     /**
@@ -141,60 +135,4 @@ class Holiday
         return false;
     }
 
-    /**
-     * @return \DateTime
-     */
-    private function fixedCalc()
-    {
-        $date = new \DateTime();
-        $date->setDate($this->year, $this->month, $this->day);
-        return $date;
-    }
-
-
-    /**
-     * @return \DateTime
-     * @throws \Exception
-     */
-    private function happyCalc()
-    {
-        $date = new \DateTime();
-        $first_week = $date->setDate($this->year, $this->month, 1)->format('w');
-        $day = ($this->nth - 1) * 7 + 1;
-        $diff = $this->dow - $first_week;
-        if($diff < 0) {
-            $day += $diff + 7; // 1日の曜日より前の曜日の場合
-        } else {
-            $day += $diff; // 1日の曜日より後の曜日の場合
-        }
-        // 組み立てた日付が月の最終日（日数）よりも大きい場合
-        if($date->format('t') < $day) {
-            throw new \Exception($this->caption . " Out of range");
-        }
-        $date->setDate($this->year, $this->month, $day);
-        return $date;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    private function springCalc()
-    {
-        $day = floor(20.84341 + 0.242194 * ($this->year - 1980) - floor(($this->year - 1980) / 4));
-        $date = new \DateTime();
-        $date->setDate($this->year, $this->month, $day);
-        return $date;
-    }
-
-
-    /**
-     * @return \DateTime
-     */
-    private function autumnCalc()
-    {
-        $day = floor(23.2488 + 0.242194 * ($this->year - 1980) - floor(($this->year - 1980) / 4));
-        $date = new \DateTime();
-        $date->setDate($this->year, $this->month, $day);
-        return $date;
-    }
 }
