@@ -18,35 +18,122 @@ class JapaneseHoliday
 {
 
     /**
-     * @param $year
+     * @var array
+     */
+    private $holidays = [];
+
+    /**
+     * @var array|mixed
+     */
+    private $holidaysConf = [];
+
+    /**
+     * JapaneseHoliday constructor.
+     * @param int $year
      * @param int $month
+     */
+    public function __construct($year = 0, $month = 0)
+    {
+        $this->holidaysConf = Yaml::parse(file_get_contents(__DIR__.'/../config/holidays.yaml'));
+        $this->setHolidays($year, $month);
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     */
+    public function reset($year = 0, $month = 0)
+    {
+        $this->setHolidays($year, $month);
+    }
+
+    /**
+     * @param string $format
      * @return array
      */
-    public function getHolidays($year, $month = 0)
+    public function getHolidays($format = 'Y-m-d')
     {
-        $holidaysConf = Yaml::parse(file_get_contents(__DIR__.'/../config/holidays.yaml'));
+        $response = [];
+        foreach ($this->holidays as $holiday){
+            $tmp = [
+                'caption' => $holiday->getCaption(),
+                'date' => $holiday->getDateTime()->format($format)
+            ];
+            $response[] = $tmp;
+        }
+        return $response;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCaptions()
+    {
+        $response = [];
+        foreach ($this->holidays as $holiday){
+            $response[] = $holiday->getCaption();
+        }
+        return $response;
+    }
+
+    /**
+     * @param string $format
+     * @return array
+     */
+    public function getDates($format = 'Y-m-d')
+    {
+        $response = [];
+        foreach ($this->holidays as $holiday){
+            $response[] = $holiday->getDateTime()->format($format);
+        }
+        return $response;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDateTimes()
+    {
+        $response = [];
+        foreach ($this->holidays as $holiday){
+            $response[] = $holiday->getDateTime();
+        }
+        return $response;
+    }
+
+
+    /**
+     * @param int $year
+     * @param int $month
+     */
+    private function setHolidays($year = 0, $month = 0)
+    {
+        if($year == 0){
+            $date = new \DateTime();
+            $year = $date->format('Y');
+        }
+
+        try {
+            $this->dateCheck($year, $month);
+        } catch (\Exception $e) {
+            echo "Error:" . $e->getMessage();
+            exit();
+        }
+
         $holidays = [];
-        // 設定から祝日を作成
-        foreach($holidaysConf as $item){
+        foreach($this->holidaysConf as $item){
             if($month > 0 && $month != $item['month']){
                 continue;
             }
             $holiday = new Holiday(
-                $item['caption'],
-                $item['type'],
-                $item['start'],
-                $item['end'],
-                $item['month'],
-                $item['day'],
-                $item['nth'],
-                $item['dow'],
+                $item['caption'], $item['type'], $item['start'], $item['end'],
+                $item['month'], $item['day'], $item['nth'], $item['dow'],
                 $year
             );
             if($holiday->isScopeYear()){
                 $holiday->setDateTimeByYear();
                 $holidays[] = $holiday;
             }
-
         }
 
         if($year >= 1973){
@@ -61,7 +148,23 @@ class JapaneseHoliday
             $holidays = $nationalNoliday->setNationalHoliday($holidays);
         }
 
-        return $holidays;
+        $this->holidays = $holidays;
     }
 
+
+    /**
+     * @param $year
+     * @param $month
+     * @throws \Exception
+     */
+    private function dateCheck($year, $month)
+    {
+        if($month == 0){
+            $month = 1;
+        }
+        $day = 1;
+        if(!checkdate($month, $day, $year)){
+            throw new \Exception("checkdate error");
+        }
+    }
 }
