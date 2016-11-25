@@ -18,6 +18,11 @@ class JapaneseHoliday
 {
 
     /**
+     * @var int
+     */
+    private $year = 0;
+
+    /**
      * @var array
      */
     private $holidays = [];
@@ -101,6 +106,14 @@ class JapaneseHoliday
         return $response;
     }
 
+    /**
+     * @return int
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
 
     /**
      * @param int $year
@@ -112,9 +125,10 @@ class JapaneseHoliday
             $date = new \DateTime();
             $year = $date->format('Y');
         }
+        $this->year = $year;
 
         try {
-            $this->dateCheck($year, $month);
+            $this->dateCheck($this->year, $month);
         } catch (\Exception $e) {
             echo "Error:" . $e->getMessage();
             exit();
@@ -129,7 +143,7 @@ class JapaneseHoliday
             $holiday = new $class(
                 $item['caption'], $item['type'], $item['start'], $item['end'],
                 $item['month'], $item['day'], $item['nth'], $item['dow'],
-                $year
+                $this->year
             );
             if(!$holiday->isScopeYear()){
                 continue;
