@@ -129,7 +129,7 @@ class JapaneseHoliday
 
         try {
             $this->dateCheck($this->year, $month);
-        } catch (\Exception $e) {
+        } catch (\RuntimeException $e) {
             echo "Error:" . $e->getMessage();
             exit();
         }
@@ -151,7 +151,7 @@ class JapaneseHoliday
 
             try {
                 $holiday->calc();
-            } catch (\Exception $e) {
+            } catch (\RuntimeException $e) {
                 echo "Error:" . $e->getMessage();
                 exit();
             }
@@ -177,7 +177,7 @@ class JapaneseHoliday
     /**
      * @param $year
      * @param $month
-     * @throws \Exception
+     * @throws \RuntimeException
      */
     private function dateCheck($year, $month)
     {
@@ -186,7 +186,7 @@ class JapaneseHoliday
         }
         $day = 1;
         if(!checkdate($month, $day, $year)){
-            throw new \Exception("checkdate error");
+            throw new \RuntimeException("checkdate error");
         }
     }
 }

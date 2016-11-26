@@ -48,7 +48,7 @@ class Happy extends Holiday
         }
         // 組み立てた日付が月の最終日（日数）よりも大きい場合
         if($date->format('t') < $day) {
-            throw new \Exception($this->caption . " Out of range");
+            throw new \RuntimeException($this->caption . " Out of range");
         }
         $date->setDate($this->year, $this->month, $day);
         $this->dateTime = $date;
