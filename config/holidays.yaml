@@ -35,6 +35,15 @@
   nth:
   dow:
 -
+  caption: 天皇誕生日
+  type: fixed
+  start: 2020
+  end:
+  month: 2
+  day: 23
+  nth:
+  dow:
+-
   caption: 昭和天皇の大喪の礼
   type: fixed
   start: 1989
@@ -77,6 +86,33 @@
   end:
   month: 4
   day: 29
+  nth:
+  dow:
+-
+  caption: 国民の休日
+  type: fixed
+  start: 2019
+  end: 2019
+  month: 4
+  day: 30
+  nth:
+  dow:
+-
+  caption: 新天皇即位日
+  type: fixed
+  start: 2019
+  end: 2019
+  month: 5
+  day: 1
+  nth:
+  dow:
+-
+  caption: 国民の休日
+  type: fixed
+  start: 2019
+  end: 2019
+  month: 5
+  day: 2
   nth:
   dow:
 -
@@ -179,6 +215,15 @@
   nth: 2
   dow: 1
 -
+  caption: 即位礼正殿の儀
+  type: fixed
+  start: 2019
+  end: 2019
+  month: 10
+  day: 22
+  nth:
+  dow:
+-
   caption: 文化の日
   type: fixed
   start: 1948
@@ -200,7 +245,7 @@
   caption: 天皇誕生日
   type: fixed
   start: 1989
-  end:
+  end: 2018
   month: 12
   day: 23
   nth:

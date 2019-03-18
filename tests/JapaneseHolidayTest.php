@@ -267,4 +267,79 @@ class JapaneseHolidayTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2016年05月04日', $dates[1]);
         $this->assertEquals('2016年05月05日', $dates[2]);
     }
+
+    public function testGetHolidays2019()
+    {
+        $this->JapaneseHoliday->reset(2019);
+        $holidays = $this->JapaneseHoliday->getHolidays();
+        $holidays = $this->JapaneseHoliday->getHolidays();
+        $this->assertEquals(22, count($holidays));
+
+        $this->assertEquals('元日', $holidays[0]['caption']);
+        $this->assertEquals('2019-01-01', $holidays[0]['date']);
+
+        $this->assertEquals('成人の日', $holidays[1]['caption']);
+        $this->assertEquals('2019-01-14', $holidays[1]['date']);
+
+        $this->assertEquals('建国記念日', $holidays[2]['caption']);
+        $this->assertEquals('2019-02-11', $holidays[2]['date']);
+
+        $this->assertEquals('春分の日', $holidays[3]['caption']);
+        $this->assertEquals('2019-03-21', $holidays[3]['date']);
+
+        $this->assertEquals('昭和の日', $holidays[4]['caption']);
+        $this->assertEquals('2019-04-29', $holidays[4]['date']);
+
+        $this->assertEquals('国民の休日', $holidays[5]['caption']);
+        $this->assertEquals('2019-04-30', $holidays[5]['date']);
+
+        $this->assertEquals('新天皇即位日', $holidays[6]['caption']);
+        $this->assertEquals('2019-05-01', $holidays[6]['date']);
+
+        $this->assertEquals('国民の休日', $holidays[7]['caption']);
+        $this->assertEquals('2019-05-02', $holidays[7]['date']);
+
+        $this->assertEquals('憲法記念日', $holidays[8]['caption']);
+        $this->assertEquals('2019-05-03', $holidays[8]['date']);
+
+        $this->assertEquals('みどりの日', $holidays[9]['caption']);
+        $this->assertEquals('2019-05-04', $holidays[9]['date']);
+
+        $this->assertEquals('こどもの日', $holidays[10]['caption']);
+        $this->assertEquals('2019-05-05', $holidays[10]['date']);
+
+        $this->assertEquals('振替休日', $holidays[11]['caption']);
+        $this->assertEquals('2019-05-06', $holidays[11]['date']);
+
+        $this->assertEquals('海の日', $holidays[12]['caption']);
+        $this->assertEquals('2019-07-15', $holidays[12]['date']);
+
+        $this->assertEquals('山の日', $holidays[13]['caption']);
+        $this->assertEquals('2019-08-11', $holidays[13]['date']);
+
+        $this->assertEquals('振替休日', $holidays[14]['caption']);
+        $this->assertEquals('2019-08-12', $holidays[14]['date']);
+
+        $this->assertEquals('敬老の日', $holidays[15]['caption']);
+        $this->assertEquals('2019-09-16', $holidays[15]['date']);
+
+        $this->assertEquals('秋分の日', $holidays[16]['caption']);
+        $this->assertEquals('2019-09-23', $holidays[16]['date']);
+
+        $this->assertEquals('体育の日', $holidays[17]['caption']);
+        $this->assertEquals('2019-10-14', $holidays[17]['date']);
+
+        $this->assertEquals('即位礼正殿の儀', $holidays[18]['caption']);
+        $this->assertEquals('2019-10-22', $holidays[18]['date']);
+
+        $this->assertEquals('文化の日', $holidays[19]['caption']);
+        $this->assertEquals('2019-11-03', $holidays[19]['date']);
+
+        $this->assertEquals('振替休日', $holidays[20]['caption']);
+        $this->assertEquals('2019-11-04', $holidays[20]['date']);
+
+        $this->assertEquals('勤労感謝の日', $holidays[21]['caption']);
+        $this->assertEquals('2019-11-23', $holidays[21]['date']);
+
+    }
 }
