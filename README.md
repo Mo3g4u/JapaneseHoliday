@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Mo3g4u/JapaneseHoliday.svg?branch=master)](https://travis-ci.org/Mo3g4u/JapaneseHoliday)
+
 # JapaneseHoliday
 日本の祝日
 
